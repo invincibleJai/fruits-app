@@ -1,25 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Page, PageHeader, PageSection, PageSectionVariants, TextContent, Text } from '@patternfly/react-core';
+import FruitsList from './components/FruitsList';
+import AddFruits from './components/AddFruits';
+
+// import "@patternfly/react-core/dist/styles/base.css";
+// import './fonts.css';
 
 function App() {
+  const Header = (
+    <PageHeader style={{ background: '#000', color: '#fff' }} logo={<h1>Fruits App</h1>}> Fruits App </PageHeader>
+  );
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Page
+        header={Header}
+        isManagedSidebar
+      >
+        <PageSection variant={PageSectionVariants.light}>
+          <TextContent>
+            <Text component="h1">Show Fruits</Text>
+            <Text component="p">
+              List the Fruits and season they are available in, can Add or remove fruits as well.
+              </Text>
+              <AddFruits />
+              <FruitsList />
+          </TextContent>
+        </PageSection>
+      </Page>
+    </>
   );
 }
 
