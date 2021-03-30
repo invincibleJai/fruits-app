@@ -6,7 +6,7 @@ import { DELETE_FRUIT_ACTION } from '../constants';
 const columns = [
     { title: "Name" },
     { title: "Season" },
-    { title: "Delete" }
+    { title: "Action" }
 ];
 
 type FruitsListProps = {

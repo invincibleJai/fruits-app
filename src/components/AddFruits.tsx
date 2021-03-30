@@ -8,6 +8,7 @@ const AddFruits: React.FC<{dispatch:dispatchProps}> = ({dispatch}) => {
     const [fruitSeason, setFruitSeason] = React.useState<string>('');
     const [isModalOpen, setIsModalOpen] = React.useState<boolean>();
     const [error, setError] = React.useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = React.useState<string>('You must fill out all required fields before you can proceed.');
 
     const handleModalToggle = () => {
         setError(false);
@@ -49,6 +50,7 @@ const AddFruits: React.FC<{dispatch:dispatchProps}> = ({dispatch}) => {
                 .catch((err) => {
                     console.log(err);
                     setError((err) => !err);
+                    setErrorMessage(`${err.statuscode} - ${err.statusText}`)
                 })
         } else {
             setError((err) => !err);
@@ -101,7 +103,7 @@ const AddFruits: React.FC<{dispatch:dispatchProps}> = ({dispatch}) => {
                         <FormAlert>
                             <Alert
                                 variant="danger"
-                                title="You must fill out all required fields before you can proceed."
+                                title={errorMessage}
                                 aria-live="polite"
                                 isInline
                             />
