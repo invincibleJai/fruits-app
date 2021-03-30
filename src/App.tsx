@@ -1,10 +1,7 @@
 import React from 'react';
 import { Page, PageHeader, PageSection, PageSectionVariants, TextContent, Text } from '@patternfly/react-core';
-import FruitsList from './components/FruitsList';
-import AddFruits from './components/AddFruits';
-
-// import "@patternfly/react-core/dist/styles/base.css";
-// import './fonts.css';
+import FruitApp from './components/FruitsApp';
+import FruitsProvider from './components/ContextApi/FruitsProvider';
 
 function App() {
   const Header = (
@@ -22,8 +19,9 @@ function App() {
             <Text component="p">
               List the Fruits and season they are available in, can Add or remove fruits as well.
               </Text>
-              <AddFruits />
-              <FruitsList />
+            <FruitsProvider >
+              <FruitApp />
+            </FruitsProvider>
           </TextContent>
         </PageSection>
       </Page>
