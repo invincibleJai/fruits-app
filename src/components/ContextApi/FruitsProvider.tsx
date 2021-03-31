@@ -1,10 +1,11 @@
 import React from 'react';
+import { FRUITS_LOADED, FRUITS_LOADED_FAILED } from '../../constants';
 import FruitsReducer from '../../reducers/FruitsReducer';
 
 export type dispatchProps = ({ type, payload }: { type: string, payload: any }) => void
 
 type FruitsContextProps = {
-    state: { fruitsList: any[], loaded: boolean };
+    state: { fruitsList: any[], loaded: boolean , loadError?: string };
     dispatch: dispatchProps;
 }
 
@@ -13,8 +14,7 @@ export const FruitsContext = React.createContext({} as FruitsContextProps);
 const FruitsProvider: React.FC = (props) => {
     const [state, dispatch] = React.useReducer(FruitsReducer, {fruitsList : [], loaded: false});
     React.useEffect(() => {
-        // https://gist.githubusercontent.com/invincibleJai/7f3e2e710e51b27ecfd97b14edf82df6/raw/d9611451e8081089f3d0f45827da9e7548cb02ca/fruits-app
-        fetch('http://localhost:8080/api/fruits')
+        fetch(`${process.env.REACT_APP_API_HOST}/api/fruits`)
             .then(async (resp) => {
                 const data = await resp.json()
                 console.log(data);
@@ -28,12 +28,16 @@ const FruitsProvider: React.FC = (props) => {
                     }
                 });
                 dispatch({
-                    type: 'FRUITS_LOADED',
+                    type: FRUITS_LOADED,
                     payload:rowsData
                 })
             })
             .catch((err) => {
                 console.log(err);
+                dispatch({
+                    type: FRUITS_LOADED_FAILED,
+                    payload: {loaded: true , loadError: `${err.status} ${err.message}`}
+                })
             })
         // eslint-disable-next-line 
     }, [])

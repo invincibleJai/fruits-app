@@ -23,7 +23,7 @@ const FruitsList: React.FC<FruitsListProps> = ({loaded, fruitsList, dispatch}) =
             const requestOptions = {
                 method: 'DELETE'
             };
-            fetch(`http://localhost:8080/api/fruit/${item.fruitname}`, requestOptions)
+            fetch(`${process.env.REACT_APP_API_HOST}/api/fruit/${item.fruitname}`, requestOptions)
                 .then((resp) => {
                     console.log(resp);
                     dispatch({

@@ -29,7 +29,7 @@ const AddFruits: React.FC<{dispatch:dispatchProps}> = ({dispatch}) => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(requestBody)
             };
-            fetch('http://localhost:8080/api/fruit', requestOptions)
+            fetch(`${process.env.REACT_APP_API_HOST}/api/fruit`, requestOptions)
                 .then((resp) => {
                     console.log(resp);
                     dispatch({
@@ -50,7 +50,7 @@ const AddFruits: React.FC<{dispatch:dispatchProps}> = ({dispatch}) => {
                 .catch((err) => {
                     console.log(err);
                     setError((err) => !err);
-                    setErrorMessage(`${err.statuscode} - ${err.statusText}`)
+                    setErrorMessage(`${err.status} - ${err.statusText}`)
                 })
         } else {
             setError((err) => !err);
