@@ -4,8 +4,13 @@ import FruitApp from './components/FruitsApp';
 import FruitsProvider from './components/ContextApi/FruitsProvider';
 
 function App() {
+  const logoProps = {
+    href: 'https://patternfly.org',
+    onClick: () => console.log('clicked logo'),
+    target: '_blank'
+  };
   const Header = (
-    <PageHeader style={{ background: '#000', color: '#fff' }} logo={<h1>Fruits App</h1>}> Fruits App </PageHeader>
+    <PageHeader style={{ background: '#000', color: '#fff' }} logo={<h1>Fruits App</h1>} logoProps={logoProps}> Fruits App </PageHeader>
   );
   return (
     <>
