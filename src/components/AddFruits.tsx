@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Form, FormGroup, TextInput, Button, Modal, ModalVariant, FormAlert, Alert } from '@patternfly/react-core';
+import { Form, FormGroup, TextInput, Button, Modal, ModalVariant, FormAlert, Alert, FormSelect, FormSelectOption } from '@patternfly/react-core';
 import { dispatchProps } from './ContextApi/FruitsProvider';
 import { ADD_FRUIT_ACTION } from '../constants';
 
-const AddFruits: React.FC<{dispatch:dispatchProps}> = ({dispatch}) => {
+const AddFruits: React.FC<{ dispatch: dispatchProps }> = ({ dispatch }) => {
     const [fruitName, setFruitName] = React.useState<string>('');
     const [fruitSeason, setFruitSeason] = React.useState<string>('');
     const [isModalOpen, setIsModalOpen] = React.useState<boolean>();
@@ -17,6 +17,12 @@ const AddFruits: React.FC<{dispatch:dispatchProps}> = ({dispatch}) => {
         setIsModalOpen((modalopen) => !modalopen)
     }
 
+    const options = [
+        { value: 'summer', label: 'summer', disabled: false },
+        { value: 'winter', label: 'winter', disabled: false },
+        { value: 'fall', label: 'fall', disabled: false },
+        { value: 'all', label: 'all', disabled: false }
+    ]
     const handleModalSubmit = () => {
         console.log(fruitName, fruitSeason);
         const requestBody = {
@@ -36,7 +42,7 @@ const AddFruits: React.FC<{dispatch:dispatchProps}> = ({dispatch}) => {
                         type: ADD_FRUIT_ACTION,
                         payload: {
                             cells: [
-                                { title:fruitName },
+                                { title: fruitName },
                                 { title: fruitSeason },
                                 { title: "delete", fruitname: fruitSeason }
                             ]
@@ -88,16 +94,19 @@ const AddFruits: React.FC<{dispatch:dispatchProps}> = ({dispatch}) => {
                             onChange={(val) => setFruitName(val)}
                         />
                     </FormGroup>
-                    <FormGroup label="Season" isRequired fieldId="simple-form-number-01">
-                        <TextInput
-                            isRequired
-                            type="tel"
-                            id="simple-form-number-01"
-                            placeholder="Enter Fruit Season"
-                            name="simple-form-number-01"
+
+                    <FormGroup label="Season dropdown" fieldId="horizontal-form-title">
+                        <FormSelect
                             value={fruitSeason}
                             onChange={(val) => setFruitSeason(val)}
-                        />
+                            id="horzontal-form-title"
+                            name="horizontal-form-title"
+                            aria-label="Your title"
+                        >
+                            {options.map((option, index) => (
+                                <FormSelectOption isDisabled={option.disabled} key={index} value={option.value} label={option.label} />
+                            ))}
+                        </FormSelect>
                     </FormGroup>
                     {error && (
                         <FormAlert>

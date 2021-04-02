@@ -40,8 +40,8 @@ const FruitsList: React.FC<FruitsListProps> = ({loaded, fruitsList, dispatch}) =
     const rowWrapperFunc = (props: any) => {
         console.log(props)
         return (<tr>
-            {props.row.cells.map((pr: any) => {
-                return <td key={pr.title}>{pr.title === 'delete' ? <button onClick={(e: React.SyntheticEvent) => deleteFruits(e, pr)}>Delete</button> : pr.title}</td>
+            {props.row.cells.map((pr: any, index:number) => {
+                return <td data-label={columns[index].title} key={pr.title}>{pr.title === 'delete' ? <button onClick={(e: React.SyntheticEvent) => deleteFruits(e, pr)}>Delete</button> : pr.title}</td>
             })}
         </tr>)
     }
